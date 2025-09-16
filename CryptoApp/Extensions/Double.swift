@@ -54,4 +54,12 @@ extension Double{
         return String(format: "$.2f", self)
     }
     
+    
+    /// converts a double into a String representation with % symbol
+    /// ```
+    ///Convert 1.2345 to "$1.23%"
+    /// ```
+    func asPercentString() ->String{
+        return asNumberString() + "%"
+    }
 }
