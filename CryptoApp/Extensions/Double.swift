@@ -51,7 +51,7 @@ extension Double{
     ///Convert 1.2345 to "$1.23"
     /// ```
     func asNumberString() -> String{
-        return String(format: "$.2f", self)
+        return String(format: "%.2f", self)
     }
     
     
