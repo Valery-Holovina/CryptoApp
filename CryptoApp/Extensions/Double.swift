@@ -44,4 +44,14 @@ extension Double{
         let number = NSNumber(value: self) // current number
         return currencyFormatter6.string(from: number) ?? "$0.000"
     }
+    
+    
+    /// converts a double into a String representation
+    /// ```
+    ///Convert 1.2345 to "$1.23"
+    /// ```
+    func asNumberString() -> String{
+        return String(format: "$.2f", self)
+    }
+    
 }
