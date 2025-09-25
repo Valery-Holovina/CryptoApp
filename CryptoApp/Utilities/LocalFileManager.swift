@@ -14,10 +14,10 @@ class LocalFileManager{
     
     private init(){}
     
-    func savedImage(image: UIImage){
+    func savedImage(image: UIImage, imageName: String, folderName: String){
         
         guard let data = image.pngData(),
-        let url = URL(string: "")
+        let url = getURLForImage(imageName: imageName, folderName: folderName)
         else {return}
         
         do{
@@ -28,12 +28,18 @@ class LocalFileManager{
     }
     
     //URL for the folder
-    private func getURLForFolder(name: String) -> URL?{
+    private func getURLForFolder(folderName: String) -> URL?{
         guard let url = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else
         {return nil}
-        return url.appendingPathComponent(name)
+        return url.appendingPathComponent(folderName)
     }
     
-    
+    // URL for the image
+    private func getURLForImage(imageName: String, folderName: String) -> URL?{
+        guard let folderURL = getURLForFolder(folderName: folderName) else{
+            return nil
+        }
+        return folderURL.appendingPathComponent(imageName + ".png")
+    }
     
 }
