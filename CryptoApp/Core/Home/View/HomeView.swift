@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+// (cmd shift k) to make keyboard pop up on simulator
 
 struct HomeView: View {
     
@@ -25,7 +26,7 @@ struct HomeView: View {
             VStack{
                 
                 homeHeader
-                
+                SearchBarView(searchText: $vm.searchText)
                 columnTitles
                 
                 if !showPortfolio{
