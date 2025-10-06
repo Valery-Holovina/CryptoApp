@@ -12,6 +12,7 @@ struct PortfolioView: View {
     @EnvironmentObject private var vm : HomeViewModel
     @State private var selectedCoin : CoinModel? = nil
     @State private var quantityText: String  = ""
+    @State private var showCheckmaek : Bool = false
     
     
     var body: some View {
@@ -36,6 +37,10 @@ struct PortfolioView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     XMarkButton()
 
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    trailinNavBarButtons
                 }
             }
             
@@ -96,7 +101,7 @@ extension PortfolioView{
             }
             Divider()
             HStack{
-                Text("Amount in your portfolio: ")
+                Text("Amount holding: ")
                 Spacer()
                 TextField("Ex: 1.4", text: $quantityText)
                     .multilineTextAlignment(.trailing)
@@ -110,5 +115,27 @@ extension PortfolioView{
                 
             }
         }
+    }
+    
+    
+    private var trailinNavBarButtons : some View{
+        HStack(spacing: 10){
+            Image(systemName: "checkmark")
+                .opacity(showCheckmaek ? 1.0 : 0.0)
+            
+            Button {
+                
+            } label: {
+                Text("Save".uppercased())
+                    .font(.headline)
+                    .opacity(
+                        (selectedCoin != nil && selectedCoin?.currentPrice != Double(quantityText)) ? 1.0 : 0.0
+                    )
+            }
+           
+
+           
+        }
+
     }
 }
