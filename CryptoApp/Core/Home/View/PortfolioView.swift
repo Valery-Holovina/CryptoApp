@@ -138,4 +138,32 @@ extension PortfolioView{
         }
 
     }
+    
+    private func saveButtonPressed(){
+        guard let coin = selectedCoin else {return}
+        
+        // save portfolio
+        
+        // show checkmark
+        withAnimation(.easeIn) {
+            showCheckmaek = true
+            removeSelectedcoin()
+            
+        }
+        // hide keyboard
+        UIApplication.shared.endEditing()
+        
+        //hide checkmark
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0){
+            withAnimation(.easeOut) {
+                showCheckmaek = false
+            }
+        }
+        
+    }
+    
+    private func removeSelectedcoin(){
+        selectedCoin = nil
+        vm.searchText = ""
+    }
 }
