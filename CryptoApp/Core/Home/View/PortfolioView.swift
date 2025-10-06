@@ -21,15 +21,8 @@ struct PortfolioView: View {
             .navigationTitle("Edit Portfolio")
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        dismissSheet
-                        
-                    } label: {
-                        Image(systemName: "xmark")
-                            .font(.headline)
-                    }
+                    XMarkButton()
 
-                    
                 }
             }
             
