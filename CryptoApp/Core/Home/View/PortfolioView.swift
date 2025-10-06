@@ -11,6 +11,7 @@ struct PortfolioView: View {
     
     @EnvironmentObject private var vm : HomeViewModel
     @State private var selectedCoin : CoinModel? = nil
+    @State private var quantityText: String  = ""
     
     
     var body: some View {
@@ -21,11 +22,11 @@ struct PortfolioView: View {
                     coinLogoList
                     
                     if selectedCoin != nil{
-                        VStack(spacing: 20) {
-                            HStack{
-                                Text("Current price of \(selectedCoin?.symbol.uppercased() ?? "")")
-                            }
-                        }
+                       
+                        portfolioInputSection
+                            .padding(9)
+                            .animation(.none)
+                         
                     }
                 }
             }
@@ -75,5 +76,39 @@ extension PortfolioView{
             .padding(.leading)
         }
 
+    }
+    
+    
+    
+    private func getCurrentValue() -> Double{
+        if let quantity = Double(quantityText){
+            return quantity * (selectedCoin?.currentPrice ?? 0)
+        }
+        return 0
+    }
+    
+    private var portfolioInputSection : some View{
+        VStack(spacing: 20) {
+            HStack{
+                Text("Current price of \(selectedCoin?.symbol.uppercased() ?? ""):")
+                Spacer()
+                Text(selectedCoin?.currentPrice.asCurrencyWith6Decimals() ?? "")
+            }
+            Divider()
+            HStack{
+                Text("Amount in your portfolio: ")
+                Spacer()
+                TextField("Ex: 1.4", text: $quantityText)
+                    .multilineTextAlignment(.trailing)
+                    .keyboardType(.decimalPad)
+            }
+            Divider()
+            HStack{
+                Text("Current value: ")
+                Spacer()
+                Text(getCurrentValue().asCurrencyWith2Decimals())
+                
+            }
+        }
     }
 }
