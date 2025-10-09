@@ -43,6 +43,11 @@ struct PortfolioView: View {
                     trailinNavBarButtons
                 }
             }
+            .onChange(of: vm.searchText) { oldValue, newValue in
+                if newValue == ""{
+                    removeSelectedcoin()
+                }
+            }
             
             
             
@@ -124,7 +129,7 @@ extension PortfolioView{
                 .opacity(showCheckmaek ? 1.0 : 0.0)
             
             Button {
-                
+                saveButtonPressed()
             } label: {
                 Text("Save".uppercased())
                     .font(.headline)
