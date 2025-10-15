@@ -77,6 +77,11 @@ class HomeViewModel: ObservableObject{
     
     
     
+    func updatePortfolio(coin: CoinModel, amount: Double){
+        portfolioDataService.updatePortfolio(coin: coin, amount: amount)
+    }
+    
+    
     
     
     
