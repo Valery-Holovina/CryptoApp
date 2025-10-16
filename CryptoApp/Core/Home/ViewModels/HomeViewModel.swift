@@ -47,13 +47,8 @@ class HomeViewModel: ObservableObject{
             .store(in: &cancellables)
         
         
-        //updates market data
-        marketDataservice.$marketData
-            .map (mapGlobalmarketData)
-            .sink { [weak self] returnedSats in
-                self?.statistics = returnedSats
-            }
-            .store(in: &cancellables)
+        
+        
         
         
         //updates portfolioCoins
@@ -72,7 +67,21 @@ class HomeViewModel: ObservableObject{
                 self?.portfolioCoins = returnedCoins
             }
             .store(in: &cancellables)
+  
+    
+    
+        
+        //updates market data
+        marketDataservice.$marketData
+            .combineLatest($portfolioCoins)
+            .map (mapGlobalmarketData)
+            .sink { [weak self] returnedSats in
+                self?.statistics = returnedSats
+            }
+            .store(in: &cancellables)
+        
     }
+    
     
     
     
@@ -99,7 +108,7 @@ class HomeViewModel: ObservableObject{
         }
     }
     
-    private func mapGlobalmarketData(marketDataModel: MarketDataModel?) -> [StatisticModel]{
+    private func mapGlobalmarketData(marketDataModel: MarketDataModel?, portfolioCoins: [CoinModel]) -> [StatisticModel]{
         var stats : [StatisticModel] = []
         
         guard let data = marketDataModel else{
@@ -109,7 +118,14 @@ class HomeViewModel: ObservableObject{
         let marketCap = StatisticModel(title: "Market Cap", value: data.marketCap, percentageChange: data.marketCapChangePercentage24HUsd)
         let volume = StatisticModel(title: "24h Volume", value: data.volume)
         let btcDominance = StatisticModel(title: "BTC Dominance", value: data.btcDominance)
-        let portfolio = StatisticModel(title: "Portfolio Value", value: "$0.00", percentageChange: 0)
+        
+        
+        let portfolioValue = portfolioCoins.map { (coin)->Double in
+            return coin.currentHoldingsValue
+        }
+            .reduce(0, +)
+        
+        let portfolio = StatisticModel(title: "Portfolio Value", value: portfolioValue.asCurrencyWith2Decimals(), percentageChange: 0)
 
         
         stats.append(contentsOf: [marketCap,volume, btcDominance, portfolio])
