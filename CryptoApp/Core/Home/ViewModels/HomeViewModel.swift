@@ -89,6 +89,7 @@ class HomeViewModel: ObservableObject{
         isLoading = true
         coinDataService.getCoins()
         marketDataservice.getData()
+        HapticManager.notification(type: .success)
     }
     
     
