@@ -56,7 +56,7 @@ struct HomeView: View {
      
             .navigationDestination(isPresented: $showDetailView) {
                            if let selectedCoin {
-                               DeatilView(coin: $selectedCoin)
+                               DetailLoadingView(coin: $selectedCoin)
                            }
                        }
     }

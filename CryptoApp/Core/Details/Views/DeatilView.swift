@@ -7,21 +7,37 @@
 
 import SwiftUI
 
-struct DeatilView: View {
-    
+
+
+struct DetailLoadingView: View {
     @Binding var coin: CoinModel?
     
-    init(coin: Binding<CoinModel?>) {
-        self._coin = coin
-        print("Initializing Detail View for \(String(describing: coin.wrappedValue?.name))")
+    var body: some View {
+        ZStack{
+            if let coin = coin{
+                DeatilView(coin: coin)
+            }
+        }
+    }
+}
+
+
+
+struct DeatilView: View {
+    
+    let coin: CoinModel
+    
+    init(coin: CoinModel) {
+        self.coin = coin
+        print("Initializing Detail View for \(String(describing: coin.name))")
     }
     
     var body: some View {
-        Text(coin?.name ?? "")
+        Text(coin.name)
         
     }
 }
 
 #Preview {
-    DeatilView(coin: .constant(DeveloperPreview.instance.coin))
+    DeatilView(coin: DeveloperPreview.instance.coin)
 }
