@@ -14,6 +14,9 @@ struct HomeView: View {
     
     @State private var showPortfolio: Bool = false // animate right
     @State private var showPortfolioView : Bool = false // new sheet
+    
+    @State private var selectedCoin : CoinModel? = nil
+    @State private var showDetailView: Bool = false
    
     
     var body: some View {
@@ -50,6 +53,12 @@ struct HomeView: View {
                 Spacer(minLength: 0)
             }
         }
+     
+            .navigationDestination(isPresented: $showDetailView) {
+                           if let selectedCoin {
+                               DeatilView(coin: $selectedCoin)
+                           }
+                       }
     }
 }
 
@@ -103,6 +112,9 @@ extension HomeView{
                 CoinRowView(coin: coin, showholdingsColumn: false)
                 //padding setting
                     .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                    .onTapGesture {
+                        segue(coin: coin)
+                    }
             }
         }
         .listStyle(.plain)
@@ -114,9 +126,17 @@ extension HomeView{
                 CoinRowView(coin: coin, showholdingsColumn: true)
                 //padding setting
                     .listRowInsets(.init(top: 10, leading: 0, bottom: 10, trailing: 10))
+                    .onTapGesture {
+                        segue(coin: coin)
+                    }
             }
         }
         .listStyle(.plain)
+    }
+    
+    private func segue(coin: CoinModel){
+        selectedCoin = coin
+        showDetailView.toggle()
     }
     
     private var columnTitles: some View{
