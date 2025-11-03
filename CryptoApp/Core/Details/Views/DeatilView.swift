@@ -39,22 +39,26 @@ struct DeatilView: View {
     
     var body: some View {
         ScrollView{
-            VStack(spacing: 20){
-                Text("")
-                    .frame(height: 150)
-                overview
-                Divider()
-                overviewGrid
-                
-              
-              
-                additional
-                Divider()
-                additionalGrid
+            VStack{
+                ChartView(coin: vm.coin)
+                    .padding(.vertical)
+                VStack(spacing: 20){
+                   
+                    overview
+                    Divider()
+                    overviewGrid
+                    
+                  
+                  
+                    additional
+                    Divider()
+                    additionalGrid
 
-               
+                   
+                }
+                .padding()
             }
-            .padding()
+         
             
         }
         .navigationTitle(vm.coin.name)
