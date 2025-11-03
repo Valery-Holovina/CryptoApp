@@ -58,6 +58,11 @@ struct DeatilView: View {
             
         }
         .navigationTitle(vm.coin.name)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                navigationBarTrailingItems
+            }
+        }
         
     }
 }
@@ -69,6 +74,18 @@ struct DeatilView: View {
 }
 
 extension DeatilView{
+    
+    private var navigationBarTrailingItems: some View{
+     
+            HStack {
+                Text(vm.coin.symbol.uppercased())
+                    .font(.headline)
+                    .foregroundStyle(Color.theme.secondaryText)
+                CoinImageView(coin: vm.coin)
+                    .frame(width: 25, height: 25)
+            }
+    }
+    
     private var overview: some View{
         Text("Overview")
             .font(.title)
