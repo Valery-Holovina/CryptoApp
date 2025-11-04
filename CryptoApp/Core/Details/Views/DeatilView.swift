@@ -46,6 +46,13 @@ struct DeatilView: View {
                    
                     overview
                     Divider()
+                    
+                    ZStack{
+                        if let coinDescription = vm.coinDescription, !coinDescription.isEmpty{
+                            Text(coinDescription)
+                        }
+                    }
+                    
                     overviewGrid
                     
                   
