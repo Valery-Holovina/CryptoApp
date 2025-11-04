@@ -49,12 +49,12 @@ struct DeatilView: View {
                     Divider()
                     descriptionSection
                     overviewGrid
-                    
-                  
                   
                     additional
                     Divider()
                     additionalGrid
+                    websiteSection
+                  
 
                    
                 }
@@ -157,5 +157,26 @@ extension DeatilView{
             }
         }
 
+    }
+    
+    private var websiteSection: some View{
+        VStack(alignment: .leading, spacing: 20){
+            if let websiteString = vm.websiteURL,
+               let url = URL(string: websiteString){
+                Link(destination: url) {
+                    Text("Website")
+                }
+            }
+            
+            if let redditString = vm.redditURL,
+               let url = URL(string: redditString){
+                Link(destination: url) {
+                    Text("Reddit")
+                }
+            }
+        }
+        .tint(.blue)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .font(.headline)
     }
 }
