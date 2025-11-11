@@ -31,6 +31,8 @@ struct PortfolioView: View {
                     }
                 }
             }
+            .background(Color.theme.background.ignoresSafeArea())
+            
             .scrollIndicators(.hidden)
             .navigationTitle("Edit Portfolio")
             .toolbar {

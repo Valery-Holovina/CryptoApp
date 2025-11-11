@@ -16,11 +16,22 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationStack{
-            List{
-                sectionInfo
-                sectionCoinGecko
-                sectionDeveloper
-                sectionApplication
+            ZStack{
+                
+                //background
+                Color.theme.background.ignoresSafeArea()
+                
+                //content
+                List{
+                    sectionInfo
+                        .listRowBackground(Color.theme.background.opacity(0.5))
+                    sectionCoinGecko
+                        .listRowBackground(Color.theme.background.opacity(0.5))
+                    sectionDeveloper
+                        .listRowBackground(Color.theme.background.opacity(0.5))
+                    sectionApplication
+                        .listRowBackground(Color.theme.background.opacity(0.5))
+                }
             }
             .listStyle(.grouped)
             .navigationTitle("Settings")
